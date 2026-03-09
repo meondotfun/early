@@ -594,31 +594,11 @@
     margin-bottom: clamp(32px, 5vw, 48px);
   }
 
-  /* Mobile: horizontal scroll */
+  /* Mobile: 2x2 grid */
   @media (max-width: 768px) {
-    .nft-grid-wrap {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      margin: 0 -20px clamp(32px, 5vw, 48px);
-      padding: 0 20px;
-    }
-    .nft-grid-wrap::-webkit-scrollbar { display: none; }
     .nft-grid {
-      grid-template-columns: repeat(4, 200px);
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      margin-bottom: 0;
-      width: max-content;
-    }
-    .nft-scroll-hint {
-      text-align: center;
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 3px;
-      color: var(--dim);
-      text-transform: uppercase;
-      margin-bottom: clamp(32px, 5vw, 48px);
-      margin-top: 12px;
     }
   }
 
@@ -1193,7 +1173,7 @@
             <div class="nft-name">Signal Prime</div>
             <div class="nft-footer">
               <span class="nft-rarity r-legendary">Legendary</span>
-              <span class="nft-price">TBA</span>
+              <span class="nft-price">5% drop chance</span>
             </div>
           </div>
         </div>
@@ -1207,7 +1187,7 @@
             <div class="nft-name">Void Echo</div>
             <div class="nft-footer">
               <span class="nft-rarity r-epic">Epic</span>
-              <span class="nft-price">TBA</span>
+              <span class="nft-price">15% drop chance</span>
             </div>
           </div>
         </div>
@@ -1221,7 +1201,7 @@
             <div class="nft-name">Neon Ghost</div>
             <div class="nft-footer">
               <span class="nft-rarity r-rare">Rare</span>
-              <span class="nft-price">TBA</span>
+              <span class="nft-price">30% drop chance</span>
             </div>
           </div>
         </div>
@@ -1235,19 +1215,16 @@
             <div class="nft-name">Base Signal</div>
             <div class="nft-footer">
               <span class="nft-rarity r-common">Common</span>
-              <span class="nft-price">TBA</span>
+              <span class="nft-price">50% drop chance</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="nft-scroll-hint">← swipe to explore →</div>
 
     <div class="genesis-stats reveal">
       <div class="gen-stat"><span class="gen-stat-val">1111</span><span class="gen-stat-label">Total Supply</span></div>
-      <div class="gen-stat"><span class="gen-stat-val">4</span><span class="gen-stat-label">Rarity Tiers</span></div>
       <div class="gen-stat"><span class="gen-stat-val">0.005</span><span class="gen-stat-label">Price ETH</span></div>
-      <div class="gen-stat"><span class="gen-stat-val">1</span><span class="gen-stat-label">Limit / Address</span></div>
     </div>
 
     <div class="mint-cta reveal">
