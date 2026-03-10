@@ -4,8 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#000000">
-<title>MEON — Genesis NFT Drop</title>
+<title>MEON — Join the Whitelist</title>
 <meta name="description" content="Join the MEON whitelist and be first in line. Genesis NFT collection on Base — 1111 spots only.">
+<meta name="keywords" content="MEON, NFT, Base, crypto, whitelist, genesis, mint, web3">
+<meta name="author" content="MEON Protocol">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://meondot.fun">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "MEON Protocol",
+  "url": "https://meondot.fun",
+  "description": "MEON Genesis — 1111 limited NFTs on Base. Join the whitelist.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MEON Protocol",
+    "url": "https://meondot.fun",
+    "sameAs": [
+      "https://x.com/meondotfun",
+      "https://t.me/meondotfun"
+    ]
+  }
+}
+</script>
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -1272,9 +1294,7 @@
     </div>
 
     <div class="mint-cta">
-      <!-- Наша красивая кнопка -->
       <button class="btn-mint" onclick="triggerHighlight()">Mint Genesis NFT</button>
-      <!-- Highlight виджет спрятан, но рендерится -->
       <div style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;overflow:hidden;">
         <div id="hlWidget" data-widget="highlight-mint-card" data-mint-collection-id="69aff2e8d7532ad5813e7b06" data-template='button-only'></div>
         <script type="module" crossorigin="true" src="https://mint.highlight.xyz/assets/embed.js?v=1" id="highlight-embed-script" data-embed-version="2.0"></script>
@@ -1286,18 +1306,12 @@
 <script>
 function triggerHighlight() {
   const widget = document.getElementById('hlWidget');
-  if (!widget) {
-    window.open('https://highlight.xyz/mint/base:0x59595344D39F0873243483fD8e0814cc0e2E6Bf1', '_blank');
-    return;
-  }
+  if (!widget) { window.open('https://highlight.xyz/mint/base:0x59595344D39F0873243483fD8e0814cc0e2E6Bf1','_blank'); return; }
   const shadow = widget.shadowRoot;
-  if (shadow) {
-    const btn = shadow.querySelector('button');
-    if (btn) { btn.click(); return; }
-  }
+  if (shadow) { const btn = shadow.querySelector('button'); if (btn) { btn.click(); return; } }
   const btn = widget.querySelector('button');
   if (btn) { btn.click(); return; }
-  window.open('https://highlight.xyz/mint/base:0x59595344D39F0873243483fD8e0814cc0e2E6Bf1', '_blank');
+  window.open('https://highlight.xyz/mint/base:0x59595344D39F0873243483fD8e0814cc0e2E6Bf1','_blank');
 }
 </script>
   </div>
@@ -1482,4 +1496,3 @@ makeNFT('nft4', ['#a0a0b8', '#606080', '#c0c0d0']);
 
 </body>
 </html>
-
