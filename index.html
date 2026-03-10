@@ -1294,46 +1294,15 @@
     </div>
 
     <div class="mint-cta">
-      <button class="btn-mint" id="mintBtn">Mint Genesis NFT</button>
-      <div id="hlWidget" data-widget="highlight-mint-card" data-mint-collection-id="69aff2e8d7532ad5813e7b06" data-template='button-only' style="position:fixed;bottom:-9999px;left:-9999px;width:200px;height:60px;"></div>
-      <script type="module" crossorigin="true" src="https://mint.highlight.xyz/assets/embed.js?v=1" id="highlight-embed-script" data-embed-version="2.0"></script>
+      <div style="position:relative;display:inline-block;">
+        <!-- Highlight виджет растянут на всю область кнопки, прозрачный -->
+        <div data-widget="highlight-mint-card" data-mint-collection-id="69aff2e8d7532ad5813e7b06" data-template="button-only" style="position:absolute;inset:0;z-index:2;opacity:0;"></div>
+        <!-- Наша красивая кнопка снизу -->
+        <div class="btn-mint">Mint Genesis NFT</div>
+      </div>
     </div>
   </div>
 </section>
-
-<script>
-function triggerHighlight() {
-  const widget = document.getElementById('hlWidget');
-  if (!widget) { window.open('https://highlight.xyz/mint/base:0x59595344D39F0873243483fD8e0814cc0e2E6Bf1','_blank'); return; }
-  
-  // Temporarily move widget on screen so browser allows the click
-  widget.style.position = 'fixed';
-  widget.style.bottom = '0';
-  widget.style.left = '0';
-  widget.style.opacity = '0';
-  widget.style.pointerEvents = 'all';
-  widget.style.zIndex = '1';
-
-  setTimeout(() => {
-    const shadow = widget.shadowRoot;
-    if (shadow) {
-      const btn = shadow.querySelector('button');
-      if (btn) { btn.click(); }
-    } else {
-      const btn = widget.querySelector('button');
-      if (btn) btn.click();
-    }
-    // Hide again
-    setTimeout(() => {
-      widget.style.bottom = '-9999px';
-      widget.style.left = '-9999px';
-      widget.style.opacity = '0';
-      widget.style.pointerEvents = 'none';
-    }, 300);
-  }, 50);
-}
-document.getElementById('mintBtn').addEventListener('click', triggerHighlight);
-</script>
 
 <!-- FOOTER -->
 <footer>
@@ -1509,5 +1478,6 @@ makeNFT('nft4', ['#a0a0b8', '#606080', '#c0c0d0']);
 
 </script>
 
+<script type="module" crossorigin="true" src="https://mint.highlight.xyz/assets/embed.js?v=1" id="highlight-embed-script" data-embed-version="2.0"></script>
 </body>
 </html>
