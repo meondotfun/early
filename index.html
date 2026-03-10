@@ -1294,11 +1294,9 @@
     </div>
 
     <div class="mint-cta">
-      <button class="btn-mint" onclick="triggerHighlight()">Mint Genesis NFT</button>
-      <div style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;overflow:hidden;">
-        <div id="hlWidget" data-widget="highlight-mint-card" data-mint-collection-id="69aff2e8d7532ad5813e7b06" data-template='button-only'></div>
-        <script type="module" crossorigin="true" src="https://mint.highlight.xyz/assets/embed.js?v=1" id="highlight-embed-script" data-embed-version="2.0"></script>
-      </div>
+      <button class="btn-mint" id="mintBtn">Mint Genesis NFT</button>
+      <div id="hlWidget" data-widget="highlight-mint-card" data-mint-collection-id="69aff2e8d7532ad5813e7b06" data-template='button-only' style="position:fixed;bottom:-9999px;left:-9999px;width:200px;height:60px;"></div>
+      <script type="module" crossorigin="true" src="https://mint.highlight.xyz/assets/embed.js?v=1" id="highlight-embed-script" data-embed-version="2.0"></script>
     </div>
   </div>
 </section>
@@ -1313,6 +1311,7 @@ function triggerHighlight() {
   if (btn) { btn.click(); return; }
   window.open('https://highlight.xyz/mint/base:0x59595344D39F0873243483fD8e0814cc0e2E6Bf1','_blank');
 }
+document.getElementById('mintBtn').addEventListener('click', triggerHighlight);
 </script>
   </div>
 </section>
