@@ -1305,11 +1305,32 @@
 function triggerHighlight() {
   const widget = document.getElementById('hlWidget');
   if (!widget) { window.open('https://highlight.xyz/mint/base:0x59595344D39F0873243483fD8e0814cc0e2E6Bf1','_blank'); return; }
-  const shadow = widget.shadowRoot;
-  if (shadow) { const btn = shadow.querySelector('button'); if (btn) { btn.click(); return; } }
-  const btn = widget.querySelector('button');
-  if (btn) { btn.click(); return; }
-  window.open('https://highlight.xyz/mint/base:0x59595344D39F0873243483fD8e0814cc0e2E6Bf1','_blank');
+  
+  // Temporarily move widget on screen so browser allows the click
+  widget.style.position = 'fixed';
+  widget.style.bottom = '0';
+  widget.style.left = '0';
+  widget.style.opacity = '0';
+  widget.style.pointerEvents = 'all';
+  widget.style.zIndex = '1';
+
+  setTimeout(() => {
+    const shadow = widget.shadowRoot;
+    if (shadow) {
+      const btn = shadow.querySelector('button');
+      if (btn) { btn.click(); }
+    } else {
+      const btn = widget.querySelector('button');
+      if (btn) btn.click();
+    }
+    // Hide again
+    setTimeout(() => {
+      widget.style.bottom = '-9999px';
+      widget.style.left = '-9999px';
+      widget.style.opacity = '0';
+      widget.style.pointerEvents = 'none';
+    }, 300);
+  }, 50);
 }
 document.getElementById('mintBtn').addEventListener('click', triggerHighlight);
 </script>
@@ -1495,3 +1516,4 @@ makeNFT('nft4', ['#a0a0b8', '#606080', '#c0c0d0']);
 
 </body>
 </html>
+
