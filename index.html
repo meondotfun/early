@@ -1294,13 +1294,80 @@
     </div>
 
     <div class="mint-cta">
-      <div style="position:relative;display:inline-block;">
-        <!-- Highlight виджет растянут на всю область кнопки, прозрачный -->
-        <div data-widget="highlight-mint-card" data-mint-collection-id="69aff2e8d7532ad5813e7b06" data-template="button-only" style="position:absolute;inset:0;z-index:2;opacity:0;"></div>
-        <!-- Наша красивая кнопка снизу -->
-        <div class="btn-mint">Mint Genesis NFT</div>
-      </div>
+      <button class="btn-mint" id="mintBtn" onclick="startMint()">Mint Genesis NFT</button>
+      <p class="mint-note" id="mintNote">0.005 ETH · Base chain · 1111 supply</p>
     </div>
+  </div>
+</section>
+
+<script>
+const CONTRACT = '0x59595344D39F0873243483fD8e0814cc0e2E6Bf1';
+const PRICE    = '0x11C37937E08000'; // 0.005 ETH in hex wei
+const CHAIN_ID = '0x2105';           // Base mainnet
+
+async function startMint() {
+  const btn  = document.getElementById('mintBtn');
+  const note = document.getElementById('mintNote');
+
+  if (!window.ethereum) {
+    alert('Установи MetaMask или другой Web3 кошелёк');
+    return;
+  }
+
+  try {
+    btn.disabled    = true;
+    btn.textContent = 'Connecting...';
+
+    // 1. Запрос аккаунта
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+    // 2. Переключаем на Base если нужно
+    const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+    if (chainId !== CHAIN_ID) {
+      try {
+        await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: CHAIN_ID }] });
+      } catch (e) {
+        if (e.code === 4902) {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [{ chainId: CHAIN_ID, chainName: 'Base', nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 }, rpcUrls: ['https://mainnet.base.org'], blockExplorerUrls: ['https://basescan.org'] }]
+          });
+        } else throw e;
+      }
+    }
+
+    btn.textContent = 'Confirm in wallet...';
+
+    // 3. Отправляем транзакцию
+    const txHash = await window.ethereum.request({
+      method: 'eth_sendTransaction',
+      params: [{ from: accounts[0], to: CONTRACT, value: PRICE, data: '0x1249c58b' }]
+    });
+
+    btn.textContent = 'Minting...';
+    note.textContent = 'Transaction sent · ' + txHash.slice(0,10) + '...';
+
+    // 4. Ждём подтверждения
+    await waitReceipt(txHash);
+
+    btn.textContent  = '✓ Minted!';
+    note.innerHTML   = `<a href="https://basescan.org/tx/${txHash}" target="_blank" rel="noopener" style="color:var(--g1);text-decoration:none;">View on Basescan ↗</a>`;
+
+  } catch (e) {
+    btn.disabled    = false;
+    btn.textContent = 'Mint Genesis NFT';
+    if (e.code !== 4001) note.textContent = e.message || 'Error. Try again.';
+  }
+}
+
+async function waitReceipt(hash) {
+  for (let i = 0; i < 60; i++) {
+    await new Promise(r => setTimeout(r, 3000));
+    const r = await window.ethereum.request({ method: 'eth_getTransactionReceipt', params: [hash] });
+    if (r) return r;
+  }
+}
+</script>
   </div>
 </section>
 
@@ -1343,7 +1410,7 @@ function submitEmail() {
 
   const siteUrl   = encodeURIComponent(window.location.href);
   const tweetText = encodeURIComponent(
-    'Just joined the MEON waitlist 🚀 Genesis NFT drop coming — 1111 limited. Get in early 👉 ' + decodeURIComponent(siteUrl)
+    'Just joined the @MEONDOTFUN waitlist 🚀 Genesis NFT drop — 1111 limited. Get in early 👉 ' + decodeURIComponent(siteUrl)
   );
   twitterBtn.href = 'https://twitter.com/intent/tweet?text=' + tweetText;
   shareCard.classList.add('visible');
@@ -1476,8 +1543,5 @@ makeNFT('nft4', ['#a0a0b8', '#606080', '#c0c0d0']);
 // ── MINT FLOW ────────────────────────────────────────────────────────────────
 // (removed — using Highlight embed)
 
-</script>
-
-<script type="module" crossorigin="true" src="https://mint.highlight.xyz/assets/embed.js?v=1" id="highlight-embed-script" data-embed-version="2.0"></script>
 </body>
 </html>
